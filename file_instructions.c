@@ -83,6 +83,8 @@ void find_function(char *opcode, char *val, int line_number, int format)
 	instruction_t functions_list[] = {
 		{"push", add_node_stack},
 		{"pall", print_stack},
+		{"pint", print_top_stack},
+		{"pop", pop_top_stack},
 		{NULL, NULL}
 	};
 
@@ -135,11 +137,37 @@ void call_function(op_func func, char *op, char *val, int line_num, int format)
 		}
 		node = create_node(atoi(val) * flag);
 		if (format == 0)
+		{
 			func(&node, line_num);
+			set_global_head(node);
+		}
 		if (format == 1)
 			add_node_queue(&node, line_num);
+
+	}
+	else if (strcmp(op, "pall") == 0)
+	{
+		func(&node, line_num);
 		set_global_head(node);
 	}
-	else
+	else if (strcmp(op, "pint") == 0)
+	{
+		if (node == NULL)
+		{
+			fprintf(stderr, "L%d: can't pint an empty stack\n", line_num);
+			exit(EXIT_FAILURE);
+		}
 		func(&node, line_num);
+		set_global_head(node);
+	}
+	else if (strcmp(op, "pop") == 0)
+	{
+		if (node == NULL)
+		{
+			fprintf(stderr, "L%d: can't pop an empty stack\n", line_num);
+			exit(EXIT_FAILURE);
+		}
+		func(&node, line_num);
+		set_global_head(node);
+	}
 }
