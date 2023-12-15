@@ -40,3 +40,45 @@ void errors(int err_code, ...)
 	free_all_nodes();
 	exit(EXIT_FAILURE);
 }
+
+/**
+ * more_errors - prints error messages according to their error code
+ * @err_code: error codes are:
+ * 6 - Error: can't pint an empty stack
+ * 7 - Error: can't pop an empty stack
+ * 8 - Error: stack too short
+ * 9 - Error: division by zero
+*/
+
+void more_errors(int err_code, ...)
+{
+	va_list args;
+	int line_number;
+	char *opcode;
+
+	va_start(args, err_code);
+	switch (err_code)
+	{
+		case 6:
+			line_number = va_arg(args, int);
+			fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+			break;
+		case 7:
+			line_number = va_arg(args, int);
+			fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
+			break;
+		case 8:
+			line_number = va_arg(args, int);
+			opcode = va_arg(args, char *);
+			fprintf(stderr, "L%d: can't %s, stack too short\n", line_number, opcode);
+			break;
+		case 9:
+			line_number = va_arg(args, int);
+			fprintf(stderr, "L%d: division by zero\n", line_number);
+			break;
+		default:
+			break;
+	}
+	free_all_nodes();
+	exit(EXIT_FAILURE);
+}
