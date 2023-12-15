@@ -143,28 +143,12 @@ void call_function(op_func func, char *op, char *val, int line_num, int format)
 		}
 		if (format == 1)
 			add_node_queue(&node, line_num);
-
 	}
-	else if (strcmp(op, "pall") == 0)
+	else if (strcmp(op, "pall") == 0 || strcmp(op, "pint") == 0 || strcmp(op, "pop") == 0)
 	{
-		func(&node, line_num);
-		set_global_head(node);
-	}
-	else if (strcmp(op, "pint") == 0)
-	{
-		if (node == NULL)
+		if ((strcmp(op, "pint") == 0 || strcmp(op, "pop") == 0) && node == NULL)
 		{
-			more_errors(6, line_num);
-			exit(EXIT_FAILURE);
-		}
-		func(&node, line_num);
-		set_global_head(node);
-	}
-	else if (strcmp(op, "pop") == 0)
-	{
-		if (node == NULL)
-		{
-			more_errors(7, line_num);
+			more_errors(strcmp(op, "pint") == 0 ? 6 : 7, line_num);
 			exit(EXIT_FAILURE);
 		}
 		func(&node, line_num);
