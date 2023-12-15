@@ -34,6 +34,9 @@ void errors(int err_code, ...)
 		case 4:
 			fprintf(stderr, "Error: malloc failed\n");
 			break;
+		case 5:
+			fprintf(stderr, "L%d: usage: push integer\n", va_arg(args, int));
+			break;
 		default:
 			break;
 	}
