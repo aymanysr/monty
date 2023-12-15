@@ -53,7 +53,6 @@ typedef void (*op_func)(stack_t **, unsigned int);
 void open_file(char *f_name);
 void read_file(FILE *);
 int parse_line(char *buffer, int line_number, int format);
-/* int len_characters(FILE *); */
 void find_function(char *, char *, int, int);
 void call_function(op_func, char *, char *, int, int);
 
@@ -63,11 +62,13 @@ void free_all_nodes(void);
 void add_node_stack(stack_t **, unsigned int);
 void add_node_queue(stack_t **, unsigned int);
 void print_stack(stack_t **, unsigned int);
-
+void print_top_stack(stack_t **stack, unsigned int line_number);
+void pop_top_stack(stack_t **, unsigned int);
 
 
 
 /*errors handling*/
 void errors(int err_code, ...);
+void more_errors(int err_code, ...);
 
 #endif /* MONTY_H */
