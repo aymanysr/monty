@@ -154,7 +154,7 @@ void call_function(op_func func, char *op, char *val, int line_num, int format)
 	{
 		if (node == NULL)
 		{
-			fprintf(stderr, "L%d: can't pint an empty stack\n", line_num);
+			more_errors(6, line_num);
 			exit(EXIT_FAILURE);
 		}
 		func(&node, line_num);
@@ -164,7 +164,7 @@ void call_function(op_func func, char *op, char *val, int line_num, int format)
 	{
 		if (node == NULL)
 		{
-			fprintf(stderr, "L%d: can't pop an empty stack\n", line_num);
+			more_errors(7, line_num);
 			exit(EXIT_FAILURE);
 		}
 		func(&node, line_num);
